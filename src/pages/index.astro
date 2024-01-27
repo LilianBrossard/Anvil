@@ -6,18 +6,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Component Imports
 import CallToAction from "../components/CallToAction.astro";
-import Grid from "../components/Grid.astro";
 import Hero from "../components/Hero.astro";
 import Icon from "../components/Icon.astro";
-import Pill from "../components/Pill.astro";
-import PortfolioPreview from "../components/PortfolioPreview.astro";
+import AnvilPreview from "../components/AnvilPreview.astro";
 
 // Page section components
 import ContactCTA from "../components/ContactCTA.astro";
-import Skills from "../components/Skills.astro";
+import Advantage from "../components/Advantage.astro";
 
-// Content Fetching: List four most recent work projects
-const projects = (await getCollection("work"))
+// Content Fetching: List four most recent ship
+const ships = (await getCollection("ship"))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 4);
 
@@ -26,53 +24,54 @@ const projects = (await getCollection("work"))
 ---
 
 <BaseLayout>
-  <div class="stack gap-20 lg:gap-48">
+  <div class="stack">
     <div class="wrapper stack gap-8 lg:gap-20">
       <header class="hero">
-        <Hero
-          title="Bonjour, je m'appelle Lilian Brossard"
-          tagline="Je suis développeur Astro, JavaScript, SQL, C"
-          align="start"
-        >
-          <div class="roles">
-            <Pill><Icon icon="code" size="1.33em" /> Développeur</Pill>
-            <Pill><Icon icon="strategy" size="1.33em" /> Etudiant</Pill>
-          </div>
-        </Hero>
+        <div class="revealinstant">
+          <Hero
+            title="Anvil Aerospace"
+            tagline="Découvrez l'excellence spatiale avec Anvil Aerospace : des vaisseaux militaires légendaires aux modèles civils de prestige, notre innovation traverse les frontières de l'univers pour offrir la puissance et le style à chaque voyageur interstellaire."
+            align="start"
+          />
+        </div>
 
         <img
-          alt="Lilian Brossard souriant avec un font orange"
-          width="480"
-          height="620"
-          src="/portfolio/assets/portrait.jpg"
+          class="invertrevealinstant move"
+          alt="logo anvil aerospace"
+          width="444"
+          height="444"
+          src="/anvil/public/anvilLogo.png"
         />
       </header>
-
-      <Skills />
+      <div class="margin4">
+        <Advantage />
+      </div>
     </div>
 
-    <main class="wrapper stack gap-20 lg:gap-48">
+    <main class="wrapper stack">
       <section class="section with-background with-cta">
-        <header class="section-header stack gap-2 lg:gap-4">
-          <h3>Derniers projets</h3>
-          <p>voici mes derniers projets fait tout seul ou en équipe</p>
+        <header class="section-header margin4 stack gap-2 lg:gap-4 reveal">
+          <h3>Derniers vaisseaux</h3>
+          <p>
+            Voici les 4 derniers vaisseaux sortient des usines d'Anvil Aerospace
+          </p>
         </header>
 
         <div class="gallery">
-          <Grid variant="offset">
-            {
-              projects.map((project) => (
-                <li>
-                  <PortfolioPreview project={project} />
-                </li>
-              ))
-            }
-          </Grid>
+          {
+            ships.map((ship) => (
+              <div class="reveal shipreview move">
+                <div class="AnvilPreview">
+                  <AnvilPreview ship={ship} />
+                </div>
+                <div class="triangle" />
+              </div>
+            ))
+          }
         </div>
-
-        <div class="cta">
-          <CallToAction href="/portfolio/work/">
-            En voir plus
+        <div class="cta margin4 invertreveal">
+          <CallToAction href="/anvil/ship/">
+            Voir tous les vaisseaux
             <Icon icon="arrow-right" size="1.2em" />
           </CallToAction>
         </div>
@@ -84,23 +83,34 @@ const projects = (await getCollection("work"))
 </BaseLayout>
 
 <style>
+  .AnvilPreview {
+    margin: 1rem 0;
+    padding-left: 3%;
+    width: 100%;
+  }
+  .triangle {
+    transform: rotate(20deg);
+    background-color: var(--gray-999);
+    width: 450px;
+    height: 475px;
+    position: absolute;
+    left: 90%;
+    top: 10%;
+    z-index: 1;
+  }
+  .shipreview {
+    display: flex;
+    justify-content: row;
+    margin: 2rem 0;
+    width: 100%;
+    height: auto;
+    background-color: var(--gray-700);
+  }
   .hero {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-  }
-
-  .roles {
-    display: none;
-  }
-
-  .hero img {
-    aspect-ratio: 5 / 4;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-md);
   }
 
   @media (min-width: 50em) {
@@ -109,18 +119,6 @@ const projects = (await getCollection("work"))
       grid-template-columns: 6fr 4fr;
       padding-inline: 2.5rem;
       gap: 3.75rem;
-    }
-
-    .roles {
-      margin-top: 0.5rem;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .hero img {
-      aspect-ratio: 3 / 4;
-      border-radius: 4.5rem;
-      object-fit: cover;
     }
   }
 
@@ -172,6 +170,13 @@ const projects = (await getCollection("work"))
   }
 
   @media (min-width: 50em) {
+    .AnvilPreview {
+      padding-left: 10%;
+      width: 80%;
+    }
+    .shipreview {
+      width: 80%;
+    }
     .section {
       grid-template-columns: repeat(4, 1fr);
       grid-template-areas: "header header header header" "gallery gallery gallery gallery";

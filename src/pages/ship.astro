@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import ContactCTA from "../components/ContactCTA.astro";
+import AnvilPreview from "../components/AnvilPreview.astro";
+import Hero from "../components/Hero.astro";
+
+const ships = (await getCollection("ship")).sort(
+  (a, b) => b.data.name.valueOf() - a.data.name.valueOf()
+);
+---
+
+<BaseLayout
+  title="Vaisseaux | Anvil Aerospace"
+  description="Voir tous les vaisseaux de Anvil Aerospace"
+>
+  <div class="stack gap-20 margin4">
+    <Hero
+      title="Les Vaisseaux"
+      tagline="Voici tous les Vaisseaux Anvil Aerospace connuent."
+      align="start"
+    />
+  </div>
+  <main class="wrapper stack gap-8">
+    {
+      ships.map((ship) => (
+        <div class="reveal shipreview move">
+          <div class="AnvilPreview">
+            <AnvilPreview ship={ship} />
+          </div>
+          <div class="triangle" />
+        </div>
+      ))
+    }
+  </main>
+  <div class="stack gap-20">
+    <ContactCTA />
+  </div>
+</BaseLayout>
+<style>
+  .AnvilPreview {
+    margin: 1rem 0;
+    padding-left: 3%;
+    width: 100%;
+  }
+  .triangle {
+    transform: rotate(20deg);
+    background-color: var(--gray-999);
+    width: 450px;
+    height: 475px;
+    position: absolute;
+    left: 90%;
+    top: 10%;
+    z-index: 1;
+  }
+  .shipreview {
+    display: flex;
+    justify-content: row;
+    margin: 2rem 0;
+    width: 100%;
+    height: auto;
+    background-color: var(--gray-700);
+  }
+  @media (min-width: 50em) {
+    .AnvilPreview {
+      padding-left: 10%;
+      width: 80%;
+    }
+    .shipreview {
+      width: 80%;
+    }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<section class="box skills">
+  <div class="stack gap-2 lg:gap-4 move">
+    <Icon
+      icon="rocket-launch"
+      color="var(--accent-regular)"
+      size="2.5rem"
+      gradient
+    />
+    <h2>Héritage et Fiabilité Militaire</h2>
+    <p>
+      Avec près de deux siècles d'expérience, Anvil Aerospace a établi sa
+      réputation en tant que fournisseur fiable de matériel militaire de qualité
+      supérieure pour l'UEE.
+    </p>
+  </div>
+  <div class="stack gap-2 lg:gap-4 move">
+    <Icon icon="trophy" color="var(--accent-regular)" size="2.5rem" gradient />
+    <h2>Innovation et Adaptabilité Civile</h2>
+    <p>
+      La capacité à transformer des conceptions militaires en vaisseaux civils
+      tout en conservant leur excellence technique est un témoignage de leur
+      ingéniosité.
+    </p>
+  </div>
+  <div class="stack gap-2 lg:gap-4 move">
+    <Icon
+      icon="strategy"
+      color="var(--accent-regular)"
+      size="2.5rem"
+      gradient
+    />
+    <h2>Anticipation des Besoins du Marché</h2>
+    <p>
+      Anvil Aerospace se distingue par sa capacité à anticiper et à répondre aux
+      besoins du marché. En offrant une gamme diversifiée de vaisseaux spatiaux
+      qui répondent aux exigences variées.
+    </p>
+  </div>
+</section>
+
+<style>
+  .box {
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 3rem 1rem;
+    background-color: var(--gray-999_40);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .skills {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .skills h2 {
+    font-size: var(--text-lg);
+  }
+
+  .skills p {
+    color: var(--gray-400);
+  }
+
+  @media (min-width: 70em) {
+    .box {
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      margin: 4rem;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5rem;
+    }
+
+    .skills h2 {
+      font-size: var(--text-2xl);
+    }
+  }
+</style>

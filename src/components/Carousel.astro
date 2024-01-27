@@ -71,7 +71,7 @@ const { alt } = Astro.props;
       });
 
       //--------Function to change image---------//
-      const updateCarousel = (newIndex) => {
+      const updateCarousel = (newIndex: any) => {
         images[currentIndex].classList.remove("active");
         currentIndex = (newIndex + images.length) % images.length;
         images[currentIndex].classList.add("active");
@@ -92,8 +92,6 @@ const { alt } = Astro.props;
       };
     }
   }
-
-  updateIndicators();
 </script>
 
 <style>
